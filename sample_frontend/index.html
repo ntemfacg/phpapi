@@ -74,6 +74,11 @@
                         <label for="lastname">Lastname</label>
                         <input type="text" class="form-control" name="lastname" id="lastname" required />
                     </div>
+
+                    <div class="form-group">
+                        <label for="date-of-birth">Date of Birth</label>
+                        <input type="date" class="form-control" name="date-of-birth" id="date-of-birth" required />
+                    </div>
      
                     <div class="form-group">
                         <label for="email">Email</label>
@@ -102,8 +107,9 @@ $(document).on('submit', '#sign_up_form', function(){
  var form_data=JSON.stringify(sign_up_form.serializeObject());
 
  // submit form data to api
+//  console.log(form_data);
  $.ajax({
-     url: "api/create_user.php",
+     url: "signup",
      type : "POST",
      contentType : 'application/json',
      data : form_data,
@@ -114,7 +120,7 @@ $(document).on('submit', '#sign_up_form', function(){
      },
      error: function(xhr, resp, text){
          // on error, tell the user sign up failed
-         $('#response').html("<div class='alert alert-danger'>Unable to sign up. Please contact admin.</div>");
+         $('#response').html("<div class='alert alert-danger'>Error on sign up. Please try again.</div>");
      }
  });
 
