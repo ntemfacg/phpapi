@@ -1,13 +1,13 @@
 <?php
 ob_start();
 session_start();
-require_once 'dbconnect.php';
+require_once 'dbinfo.php';
 
 if (!isset($_SESSION['user'])) {
     header("Location: login.php");
     exit;
 }
-// select logged in users detail
+// display logged in info
 $res = $conn->query("SELECT * FROM users WHERE id=" . $_SESSION['user']);
 $userRow = mysqli_fetch_array($res, MYSQLI_ASSOC);
 
@@ -18,10 +18,13 @@ $userRow = mysqli_fetch_array($res, MYSQLI_ASSOC);
     <title>Hello,<?php echo $userRow['email']; ?></title>
     <link rel="stylesheet" href="assets/css/bootstrap.min.css" type="text/css"/>
     <link rel="stylesheet" href="assets/css/index.css" type="text/css"/>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+ 
 </head>
 <body>
 
-<!-- Navigation Bar-->
+<!-- Nav Bar-->
 <nav class="navbar navbar-default navbar-fixed-top">
     <div class="container">
         <div class="navbar-header">
@@ -36,9 +39,9 @@ $userRow = mysqli_fetch_array($res, MYSQLI_ASSOC);
         </div>
         <div id="navbar" class="navbar-collapse collapse">
             <ul class="nav navbar-nav">
-                <li class="active"><a href="#">First Link</a></li>
-                <li><a href="#">Second Link</a></li>
-                <li><a href="#">Third Link</a></li>
+                <li class="active"><a href="#">Home</a></li>
+                <li><a href="#">Account</a></li>
+                
             </ul>
             <ul class="nav navbar-nav navbar-right">
 
@@ -63,15 +66,14 @@ $userRow = mysqli_fetch_array($res, MYSQLI_ASSOC);
 
 
 <div class="container">
-    <!-- Jumbotron-->
+
     <div class="jumbotron">
         <h1>Hello, <?php echo $userRow['first_name']; ?></h1>
-        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque at auctor est, in convallis eros. Nulla
-            facilisi. Donec ipsum nulla, hendrerit nec mauris vitae, lobortis egestas tortor. </p>
-        <p><a class="btn btn-primary btn-lg" href="#" role="button">Learn more</a></p>
+        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. </p>
+        
     </div>
 
-    <div class="row">
+    <!-- <div class="row">
         <div class="col-lg-12">
             <h2>Example body text</h2>
             <p>Nullam quis risus eget <a href="#">urna mollis ornare</a> vel eu leo. Cum sociis natoque penatibus et
@@ -86,7 +88,7 @@ $userRow = mysqli_fetch_array($res, MYSQLI_ASSOC);
         </div>
 
 
-    </div>
+    </div> -->
 </div>
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
