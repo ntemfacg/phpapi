@@ -66,8 +66,8 @@ function create(){
     return false;
 }
  
-// emailExists() method will be here
-// check if given email exist in the database
+
+// check if user exist in the database by email verification
 function emailExists(){
  
     // query to check if email exists
