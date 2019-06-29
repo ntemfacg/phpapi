@@ -1,7 +1,7 @@
 <?php
 ob_start();
 session_start();
-require_once '../API/login.php';
+// require_once '../API/login.php';
 
 // Session storage verification
 // TO DO: include web tokens and token verification
@@ -25,7 +25,7 @@ if (isset($_SESSION['user'])) {
 
 
     <div id="login-form">
-        <form method="post" autocomplete="off">
+        <form id="login_form" method="post" autocomplete="off">
 
             <div class="col-md-12">
 
@@ -42,7 +42,7 @@ if (isset($_SESSION['user'])) {
 
                     ?>
                     <div class="form-group">
-                        <div class="alert alert-danger">
+                        <div id="response" class="alert alert-danger">
                             <span class="glyphicon glyphicon-info-sign"></span> <?php echo $errMSG; ?>
                         </div>
                     </div>
@@ -87,7 +87,47 @@ if (isset($_SESSION['user'])) {
     </div>
 
 </div>
-<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
+<!-- <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script> -->
+<script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+
 <script type="text/javascript" src="assets/js/bootstrap.min.js"></script>
+<script type="text/javascript">
+$(document).on('submit', '#login_form', function(){
+ 
+ // get form data
+ var login_form=$(this);
+ var form_data=JSON.stringify(login_form.serialize());
+
+ // http request here
+ // submit form data to api
+$.ajax({
+    url: "../API/handle.php",
+    type : "POST",
+    contentType : 'application/json',
+    data : form_data,
+    success : function(result){
+ 
+        // store jwt to cookie
+        // setCookie("jwt", result.jwt, 1);
+ 
+        // show home page & tell the user it was a successful login
+        // showHomePage();
+        // window.Location("index.php");
+        $('#response').html("<div class='alert alert-success'>Successful login.</div>");
+ 
+    },
+    // error response will be here
+    error: function(xhr, resp, text){
+    // on error, tell the user login has failed & empty the input boxes
+    $('#response').html("<div class='alert alert-danger'>Login failed. Email or password is incorrect.</div>");
+    // login_form.find('input').val('');
+    console.log(resp);
+    console.log(text);
+}
+});
+
+ return false;
+});
+</script>
 </body>
 </html>
